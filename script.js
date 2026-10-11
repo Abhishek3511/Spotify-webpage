@@ -18,7 +18,7 @@ async function getSongs(folder) {
   currfolder = folder;
   
   
-  let a = await fetch(`/${folder}/`)
+  let a = await fetch(`http://127.0.0.1:5500/${folder}/`)
   let response = await a.text();
   let div = document.createElement("div");
   div.innerHTML = response;
@@ -64,7 +64,7 @@ const playMusic = (track, pause = false) => {
 //adding albums 
 async function displayAlbums(params) {
 
-  let a = await fetch(`/songs/`)
+  let a = await fetch(`http://127.0.0.1:5500/songs/`)
   let response = await a.text();
   let div = document.createElement("div");
   div.innerHTML = response;
@@ -73,10 +73,10 @@ async function displayAlbums(params) {
   let array = Array.from(anchor)
   for (let index = 0; index < array.length; index++) {
     const e = array[index];
-    if (e.href.includes("/songs") && e.href !== "/songs") {
+    if (e.href.includes("/songs") && e.href !== "http://127.0.0.1:5500/songs") {
       let folder = e.href.split("/").slice(-1)[0]
       //getiing meta deta of the folder
-      let a = await fetch(`/songs/${folder}/info.json`)
+      let a = await fetch(`http://127.0.0.1:5500/songs/${folder}/info.json`)
       let response = await a.json();
       cardcontainer.innerHTML = cardcontainer.innerHTML + `<div data-folder="${folder}" class="card">
             <div class="playbtn">
@@ -84,7 +84,7 @@ async function displayAlbums(params) {
                 <path d="M5 20V4L19 12L5 20Z" stroke="#141B34" fill="#000" stroke-width="1.5" stroke-linejoin="round" />
               </svg>
             </div>
-            <img class="rounded" src="/songs/${folder}/cover.jpg" alt="Img">
+            <img class="rounded" src="http://127.0.0.1:5500/songs/${folder}/cover.jpg" alt="Img">
             <h2>${response.title}</h2>
             <p>${response.description}</p>
           </div>`
